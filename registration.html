@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .container{
+            /* border: 1px solid blue; */
+           display: flex;
+           flex-direction: column;
+           justify-content: center;
+           align-items: center;
+        }
+    
+        input{
+            border: 1px solid black;
+            border-radius: 2px;
+            width: 100%;
+            font-size: 16px;
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+           align-items: center;
+           margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Regster Form</h1>
+        <div class="form">
+            <form action="/" method="post">
+               
+                <input type="text" name="name" placeholder="Enter Name">
+        
+                <input type="email" name="email" placeholder="Enter Email">
+             
+                <input type="phone" name="phone" placeholder="Enter Phone">
+             
+                <input type="password" name="password" placeholder="Enter password">
+            
+                <input type="text" name="address" placeholder="Enter address ">
+               
+                <input type="text" name="abn" placeholder="Enter abn ">
+                
+                <input type="submit" value="submit">
+            </form>
+        </div>
+       
+    </div>
+   
+</body>
+</html>
