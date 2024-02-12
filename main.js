@@ -14,26 +14,33 @@ app.get('/', (req, resp) => {
 });
 
 app.post('/', async (req, resp) => {
-    const name_get = req.body.name;
+    const fname_get = req.body.fname;
+    const lname_get = req.body.lname;
     const email_get = req.body.email;
     const phone_get = req.body.phone;
     const password_get = req.body.password;
     const Address_get = req.body.address;
     const ABN_Number_get = req.body.abn;
 
-    if (!name_get || name_get.trim() === '') {
-        return resp.status(400).send('Name cannot be empty.');
-    } else {
+    if (!fname_get || phone_get.length < 10) {
+        return resp.status(400).send('Please enter valid fname and phone (at least 10 digits).');
+    }else {
         try {
-            const hashedPassword = await bcrypt.hash(password_get, 10); // Hash the password with bcrypt
-            const connection = await db.getConnection();
-            console.log('Connected to the database');
-            const sql = "INSERT INTO register_data (name, email, phone, password, address, abn_no, created_at) VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
-            const result = await connection.query(sql, [name_get, email_get, phone_get, hashedPassword, Address_get, ABN_Number_get]);
-            console.log('Query executed successfully');
-            resp.send('Registration Successful');
-            connection.release();
-            console.log('Connection released');
+            try {
+                const hashedPassword = await bcrypt.hash(password_get, 10); // Hash the password with bcrypt
+                const connection = await db.getConnection();
+                console.log('Connected to the database');
+                const sql = "INSERT INTO register_data (fname, lname, email, phone, password, address, abn_no, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
+                const result = await connection.query(sql, [fname_get, lname_get, email_get, phone_get, hashedPassword, Address_get, ABN_Number_get]);        
+                console.log('Query executed successfully');
+                resp.send('Registration Successful');
+                connection.release();
+                console.log('Connection released');
+            } catch (error) {
+                console.log('Error executing query:', error);
+                resp.status(500).send(error.message || 'Internal Server Error');
+            }
+            
         } catch (error) {
             console.log('Error executing query:', error);
             resp.status(500).send(error.message || 'Internal Server Error');
